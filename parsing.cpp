@@ -1,17 +1,12 @@
+#include <iostream>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+using namespace std;
 
 int main(){
-	struct Point{
-		float x;
-		float y;
-		float z;
-	}
 	//char str[] = "v -1.000000 -1.000000 -1.000000";
 	// The following lines are use for the to tokenize the file lines
 	//const int size = sizeof str;
-	struct Point vertices[1];
 	int i = 0;
 	// THis lines are for getting the each line of the ile
 	FILE *file;
@@ -19,9 +14,9 @@ int main(){
 	size_t len = 0;
 	ssize_t read;
 
-	char* v = "v";
-	char* vn = "vn";
-	char* vt = "vt";
+	char v[] = "v";
+	char vn[] = "vn";
+	char vt[] = "vt";
 	// open the file
 	file = fopen("Cube-1.obj", "r");
 	// check if the file is open sucessfully
@@ -32,22 +27,17 @@ int main(){
 	// read each line of the file
 	while((read = getline(&line, &len, file)) != -1){
         		char* token = strtok(line, " ");
-			//printf("%s\n", v);
-			printf("%s", token);
+			printf("%s <-- token\n", token);
 			if (strcmp(token,v) == 0){
-				printf("\nvertices\n");
+				printf("vertices\n");
 				// get vertices
 				token = strtok(NULL, " ");
 				while (token != NULL){
-					struct Point point;
-					vertices[++i]=atof(token);
-					printf("%f ", vertices[i]);
+					printf("%s ", token);
 					token = strtok(NULL, " ");
 				}
 			}
-		//vetices[i++] = atof(token);
 	}
-		//	printf("%s", line);	
 	// close the file
 	fclose(file);
 	if (line){
@@ -61,9 +51,8 @@ int main(){
 		vertices[i++]=atof(token);
 		token = strtok(NULL, " ");
 		//vetices[i++] = atof(token);
-
 		}
 	*/
-		return 0;
+	cout << "test";
+	return 0;
 }
-
