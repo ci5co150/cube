@@ -1,22 +1,32 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <vector>
 using namespace std;
-
+class Point{
+	public:
+	float x;
+	float y;
+	float z;	
+void printPoint(){
+	cout << x << " " << y << " " << z << "\n";
+}
+};
 int main(){
-	//char str[] = "v -1.000000 -1.000000 -1.000000";
 	// The following lines are use for the to tokenize the file lines
-	//const int size = sizeof str;
-	int i = 0;
-	// THis lines are for getting the each line of the ile
 	FILE *file;
 	char* line = NULL;
 	size_t len = 0;
 	ssize_t read;
 
+	//declare a vector of points
+	vector<Point> points;
+	// The following are used to check if the line has information regarding
+	// vertices, normals, textures, or faces
 	char v[] = "v";
 	char vn[] = "vn";
 	char vt[] = "vt";
+	char f[] = "f";
 	// open the file
 	file = fopen("Cube-1.obj", "r");
 	// check if the file is open sucessfully
@@ -30,13 +40,33 @@ int main(){
 			printf("%s <-- token\n", token);
 			if (strcmp(token,v) == 0){
 				printf("vertices\n");
-				// get vertices
+				Point point;
+				// add the x cordinate
 				token = strtok(NULL, " ");
+				point.x = atof(token);
+				// add the y cordinate
+				token = strtok(NULL, " ");
+				point.y = atof(token);
+				// add the z cordinate
+				token = strtok(NULL, " ");
+				point.z = atof(token);
+				// print the points
+				cout << "Print the point:\n";
+				point.printPoint();
+				// push the point to the vector of points
+				points.push_back(point);
+				/*
 				while (token != NULL){
 					printf("%s ", token);
 					token = strtok(NULL, " ");
 				}
+				*/
 			}
+	}
+	//print to check if the vector of points has the information it hast to have
+	cout << "Check vector of points:\n";
+	for( int i = 0; i < points.size(); i++){
+		points[i].printPoint();
 	}
 	// close the file
 	fclose(file);
