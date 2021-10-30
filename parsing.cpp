@@ -5,9 +5,9 @@
 using namespace std;
 class Point{
 	public:
-	float x;
-	float y;
-	float z;	
+	float x=0.0;
+	float y=0.0;
+	float z=0.0;	
 void printPoint(){
 	cout << x << " " << y << " " << z << "\n";
 }
@@ -19,12 +19,21 @@ int main(){
 	size_t len = 0;
 	ssize_t read;
 
-	//declare a vector of points fo rthe vertices
+	//declare a vector of points for the vertices
 	vector<Point> vertices;
+	Point point;
+	// Becasue openGL starts at 1 set dummy data for index 0
+	vertices.push_back(point);
 	//declare a vector of points for the normals
 	vector<Point> verticesNormals;
+	// Becasue openGL starts at 1 set dummy data for index 0
+	verticesNormals.push_back(point);
 	//declare a vector of points for the normals
 	vector<Point> verticesTex;
+	// Becasue openGL starts at 1 set dummy data for index 0
+	verticesTex.push_back(point);
+	//declare a vector of vectors to hold the faces
+	vector<vector<int>> faces;
 	// The following are used to check if the line has information regarding
 	// vertices, normals, textures, or faces
 	char v[] = "v";
