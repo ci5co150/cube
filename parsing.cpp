@@ -3,15 +3,18 @@
 #include <string.h>
 #include <vector>
 using namespace std;
+// create a point class for the vertices
 class Point{
+	// keep them public for eazy access
 	public:
 	float x=0.0;
 	float y=0.0;
 	float z=0.0;	
-void printPoint(){
+void printPoint(){ // print the points
 	cout << x << " " << y << " " << z << "\n";
 }
-void printTex(){
+ 
+void printTex(){ // used to print the texture 
 	cout << x << " " << y << "\n";
 }
 };
@@ -44,7 +47,6 @@ int main(){
 	char vt[] = "vt";
 	char f[] = "f";
 
-	int temp = 0;
 	// open the file
 	file = fopen("Cube-1.obj", "r");
 	// check if the file is open sucessfully
@@ -55,9 +57,7 @@ int main(){
 	// read each line of the file
 	while((read = getline(&line, &len, file)) != -1){
         		char* token = strtok(line, " ");
-			//printf("%s <-- token\n", token);
 			if (strcmp(token,v) == 0){
-			//	printf("vertices\n");
 				Point point;
 				// add the x cordinate
 				token = strtok(NULL, " ");
@@ -68,18 +68,9 @@ int main(){
 				// add the z cordinate
 				token = strtok(NULL, " ");
 				point.z = atof(token);
-				// print the points
-				//cout << "Print the point:\n";
-				//point.printPoint();
 				// push the point to the vector of points
 				vertices.push_back(point);
 			}
-				/*
-				while (token != NULL){
-					printf("%s ", token);
-					token = strtok(NULL, " ");
-				}
-				*/
 			else if(strcmp(token,vn) == 0){
 			//	printf("vertices noraml\n");
 				Point point;
@@ -92,14 +83,10 @@ int main(){
 				// add the z cordinate
 				token = strtok(NULL, " ");
 				point.z = atof(token);
-				// print the points
-				//cout << "Print the point:\n";
-				//point.printPoint();
 				// push the point to the vector of the normals
 				verticesNormals.push_back(point);
 			}
 			else if(strcmp(token,vt) == 0){
-			//	printf("vertices Texture\n");
 				Point point;
 				// add the x cordinate
 				token = strtok(NULL, ",");
@@ -107,14 +94,13 @@ int main(){
 				// add the y cordinate
 				token = strtok(NULL, ",");
 				point.y = atof(token);
-				//point.printPoint();
 				// push the point to the vector of the normals
 				verticesTex.push_back(point);
 			}
 			// populate the vector of faces vector
 			else if(strcmp(token,f) == 0){
 				vector<int> facesPrime;
-				// populste the faces vector
+				// populate the faces vector
 				for(int i = 0; i < 3; i++){
 					token = strtok(NULL, "/");
 					facesPrime.push_back(atoi(token));
@@ -126,7 +112,7 @@ int main(){
 				faces.push_back(facesPrime);
 			}
 	}
-	//print to check if the vector of points has the information it hast to have
+	//print to check if the vectors have the information they have to have
 	cout << "Check vector of points:\n";
 	for( int i = 0; i < vertices.size(); i++){
 		vertices[i].printPoint();
