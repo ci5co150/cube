@@ -11,6 +11,9 @@ class Point{
 void printPoint(){
 	cout << x << " " << y << " " << z << "\n";
 }
+void printTex(){
+	cout << x << " " << y << "\n";
+}
 };
 int main(){
 	// The following lines are use for the to tokenize the file lines
@@ -40,6 +43,8 @@ int main(){
 	char vn[] = "vn";
 	char vt[] = "vt";
 	char f[] = "f";
+
+	int temp = 0;
 	// open the file
 	file = fopen("Cube-1.obj", "r");
 	// check if the file is open sucessfully
@@ -106,6 +111,20 @@ int main(){
 				// push the point to the vector of the normals
 				verticesTex.push_back(point);
 			}
+			// populate the vector of faces vector
+			else if(strcmp(token,f) == 0){
+				vector<int> facesPrime;
+				// populste the faces vector
+				for(int i = 0; i < 3; i++){
+					token = strtok(NULL, "/");
+					facesPrime.push_back(atoi(token));
+					token = strtok(NULL, "/");
+					facesPrime.push_back(atoi(token));
+					token = strtok(NULL, " ");
+					facesPrime.push_back(atoi(token));
+				}
+				faces.push_back(facesPrime);
+			}
 	}
 	//print to check if the vector of points has the information it hast to have
 	cout << "Check vector of points:\n";
@@ -118,8 +137,16 @@ int main(){
 	}
 	cout << "Check vector of Texture:\n";
 	for( int i = 0; i < verticesTex.size(); i++){
-		verticesTex[i].printPoint();
+		verticesTex[i].printTex();
 	}
+	cout << "Check vector of Faces:\n";
+	for( int i = 0; i < faces.size(); i++){
+		for(int j = 0; j <faces[i].size(); j++){
+			cout << faces[i][j] << " ";
+		}
+		cout << endl;
+	}
+
 	// close the file
 	fclose(file);
 	if (line){
@@ -127,5 +154,4 @@ int main(){
 	}
 	exit(EXIT_SUCCESS);
 	return 0;
-	//
 }
